@@ -131,7 +131,7 @@ class NovaBreadcrumbsController extends Controller
     protected function resourceFromKey($key)
     {
         $resource = Nova::resourceForKey($key);
-        dd($resource);
+
         if ($resource && in_array(Breadcrumbs::class, class_uses_recursive($resource)) == false) {
             return null;
         }
