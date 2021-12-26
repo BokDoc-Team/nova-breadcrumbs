@@ -18,7 +18,7 @@ export default {
         return {
             breadcrumbs: null,
             customResource:[
-                'Clinic'
+                'Clinics'
             ]
         };
     },
@@ -31,6 +31,7 @@ export default {
                 name: this.dashboardName,
             }).then(({ data }) => {
                 this.breadcrumbs = data;
+                console.log(data)
             });
         }
     },

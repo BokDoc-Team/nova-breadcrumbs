@@ -272,7 +272,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             breadcrumbs: null,
-            customResource: ['clinic']
+            customResource: ['Clinics']
         };
     },
     methods: {
@@ -288,6 +288,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = _ref.data;
 
                 _this.breadcrumbs = data;
+                console.log(data);
             });
         }
     },
