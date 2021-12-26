@@ -18,7 +18,9 @@ export default {
         return {
             breadcrumbs: null,
             customResource:[
-                'Clinics'
+                'Clinics',
+                'Assistants',
+                'Covered Surgeries'
             ]
         };
     },
