@@ -322,8 +322,7 @@ var render = function() {
                   "li",
                   { staticClass: "breadcrumbs__item" },
                   [
-                    breadcrumb.path != null &&
-                    breadcrumb.title != _vm.customResource[0]
+                    breadcrumb.path != null
                       ? _c("router-link", { attrs: { to: breadcrumb.path } }, [
                           _vm._v(
                             "\n                " +
