@@ -69,7 +69,8 @@ class NovaBreadcrumbsController extends Controller
 
         $ignore_resource = ['Assistants', 'Clinics', 'Covered Surgeries'];
 
-        if ($view == 'create' && !in_array(Str::title($view), $ignore_resource)) {
+        dd(Str::title($view));
+        if ($view == 'create' && !in_array(Str::title($view), $ignore_resource, true)) {
             $this->appendToCrumbs(Str::title($view), $pathParts->slice(0, 3)->implode('/'));
         } elseif ($view == 'dashboard.custom' && count(Nova::availableDashboards($request)) >= 1) {
             $this->appendToCrumbs(Str::title($request->get('name')), $pathParts->slice(0, 3)->implode('/'));
@@ -80,14 +81,17 @@ class NovaBreadcrumbsController extends Controller
             $this->resource = Nova::resourceForKey($pathParts->get(1));
             $this->model = $this->findResourceOrFail($pathParts->get(2));
             if (method_exists($this->model, 'breadcrumbResourceTitle')) {
+                if(!in_array($this->model->breadcrumbResourceTitle(), $ignore_resource, true))
                 $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
                     $pathParts->slice(0, 3)->implode('/'));
             }
         }
 
         if ($pathParts->has(3) && $view != 'lens') {
-            $this->appendToCrumbs(Str::title($view),
-                $pathParts->slice(0, 4)->implode('/'));
+            if(!in_array(Str::title($view), $ignore_resource, true)){
+                $this->appendToCrumbs(Str::title($view),
+                    $pathParts->slice(0, 4)->implode('/'));
+            }
         }
 
         return $this->getCrumbs();
