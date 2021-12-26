@@ -102,7 +102,7 @@ class NovaBreadcrumbsController extends Controller
         if(!in_array($title, $ignore_resource, true)) {
             $path = Str::start($url, '/');
         }else{
-            $path = Str::start(null, '/');
+            $path = null;
         }
             $this->crumbs->push([
                 'title' => __($title),
