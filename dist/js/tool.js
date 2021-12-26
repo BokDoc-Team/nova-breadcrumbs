@@ -272,7 +272,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             breadcrumbs: null,
-            customResource: ['Clinics']
+            customResource: ['Clinics', 'Assistants', 'Covered Surgeries']
         };
     },
     methods: {

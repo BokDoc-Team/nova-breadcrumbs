@@ -71,7 +71,6 @@ class NovaBreadcrumbsController extends Controller
                 $pathParts->slice(0, 2)->implode('/'));
         }
 
-        dd($this->model->breadcrumbResourceTitle());
         if ($view == 'create') {
             $this->appendToCrumbs(Str::title($view), $pathParts->slice(0, 3)->implode('/'));
         } elseif ($view == 'dashboard.custom' && count(Nova::availableDashboards($request)) >= 1) {
@@ -99,10 +98,13 @@ class NovaBreadcrumbsController extends Controller
 
     protected function appendToCrumbs($title, $url = null)
     {
-        $this->crumbs->push([
-            'title' => __($title),
-            'path' => Str::start($url, '/'),
-        ]);
+        $ignore_resource = ['Assistants', 'Clinics', 'Covered Surgeries'];
+        if(!in_array($title, $ignore_resource, true)){
+            $this->crumbs->push([
+                'title' => __($title),
+                'path' => Str::start($url, '/'),
+            ]);
+        }
     }
 
     /**
