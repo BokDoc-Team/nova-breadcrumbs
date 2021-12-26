@@ -100,14 +100,11 @@ class NovaBreadcrumbsController extends Controller
     {
         $ignore_resource = ['Assistants', 'Clinics', 'Covered Surgeries'];
         if(!in_array($title, $ignore_resource, true)) {
-            $path = Str::start($url, '/');
-        }else{
-            $path = null;
-        }
             $this->crumbs->push([
                 'title' => __($title),
-                'path' => $path,
+                'path' => Str::start($url, '/'),
             ]);
+        }
     }
 
     /**
