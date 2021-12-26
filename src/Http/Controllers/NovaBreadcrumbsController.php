@@ -71,6 +71,7 @@ class NovaBreadcrumbsController extends Controller
                 $pathParts->slice(0, 2)->implode('/'));
         }
 
+        dd($this->model->breadcrumbResourceTitle());
         if ($view == 'create') {
             $this->appendToCrumbs(Str::title($view), $pathParts->slice(0, 3)->implode('/'));
         } elseif ($view == 'dashboard.custom' && count(Nova::availableDashboards($request)) >= 1) {
