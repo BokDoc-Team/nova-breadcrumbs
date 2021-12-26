@@ -67,7 +67,9 @@ class NovaBreadcrumbsController extends Controller
                 $pathParts->slice(0, 2)->implode('/'));
         }
 
-        if ($view == 'create') {
+        $ignore_resource = ['Assistants', 'Clinics', 'Covered Surgeries'];
+
+        if ($view == 'create' && !in_array(Str::title($view), $ignore_resource)) {
             $this->appendToCrumbs(Str::title($view), $pathParts->slice(0, 3)->implode('/'));
         } elseif ($view == 'dashboard.custom' && count(Nova::availableDashboards($request)) >= 1) {
             $this->appendToCrumbs(Str::title($request->get('name')), $pathParts->slice(0, 3)->implode('/'));
