@@ -80,13 +80,10 @@ class NovaBreadcrumbsController extends Controller
             $this->model = $this->findResourceOrFail($pathParts->get(2));
             if($pathParts->get(1) == "assistants")
             {
-                dd('hhh');
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
                         "/resources/providers/".$this->model->provider_id);
-
             }
             else{
-                dd('vvv');
                 if (method_exists($this->model, 'breadcrumbResourceTitle')) {
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
                         $pathParts->slice(0, 3)->implode('/'));
