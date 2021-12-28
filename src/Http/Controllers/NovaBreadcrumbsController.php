@@ -79,6 +79,7 @@ class NovaBreadcrumbsController extends Controller
             $lens = Str::title(str_replace('-', ' ', $pathParts->get(3)));
             $this->appendToCrumbs($lens, $pathParts->slice(0, 4)->implode('/'));
         } elseif ($pathParts->has(2)) {
+            dd($pathParts);
             $this->resource = Nova::resourceForKey($pathParts->get(1));
             $this->model = $this->findResourceOrFail($pathParts->get(2));
             if($pathParts->get(1) == "assistants")
