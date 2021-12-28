@@ -46,11 +46,14 @@ class NovaBreadcrumbsController extends Controller
                 $cloneParts->put(1, $query->get('viaResource'));
             }
             if ($query->has('viaResourceId')) {
+                dd($query->get('viaResourceId'). 'C');
                 $cloneParts->put(2, $query->get('viaResourceId'));
                 $this->resource = $this->resourceFromKey($query->get('viaResource'));
             }
 
             if (empty($this->resource) == false) {
+                dd($this->resource .'V');
+
                 $this->model = $this->findResourceOrFail($query->get('viaResourceId'));
                 $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
                     $cloneParts->slice(0, 2)->implode('/'));
@@ -80,6 +83,7 @@ class NovaBreadcrumbsController extends Controller
             $lens = Str::title(str_replace('-', ' ', $pathParts->get(3)));
             $this->appendToCrumbs($lens, $pathParts->slice(0, 4)->implode('/'));
         } elseif ($pathParts->has(2)) {
+            dd($pathParts. 'n');
             $this->resource = Nova::resourceForKey($pathParts->get(1));
             $this->model = $this->findResourceOrFail($pathParts->get(2));
             if (method_exists($this->model, 'breadcrumbResourceTitle')) {
