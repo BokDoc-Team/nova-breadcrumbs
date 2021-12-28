@@ -51,9 +51,9 @@ class NovaBreadcrumbsController extends Controller
 
                 $this->model = $this->findResourceOrFail($query->get('viaResourceId'));
                 $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
-                    $cloneParts->slice(0, 2)->implode('/'),($this->model->provider_id)?: null);
+                    $cloneParts->slice(0, 2)->implode('/'), $this->model->provider_id ?? null);
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
-                        $cloneParts->slice(0, 3)->implode('/'),($this->model->provider_id)?: null);
+                        $cloneParts->slice(0, 3)->implode('/'),$this->model->provider_id ?? null);
             }
         }
 
@@ -65,7 +65,7 @@ class NovaBreadcrumbsController extends Controller
 
         if ($this->resource) {
             $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
-                $pathParts->slice(0, 2)->implode('/'), ($this->model->provider_id)?: null);
+                $pathParts->slice(0, 2)->implode('/'),  $this->model->provider_id ?? null);
         }
 
         if ($view == 'create') {
@@ -80,7 +80,7 @@ class NovaBreadcrumbsController extends Controller
             $this->model = $this->findResourceOrFail($pathParts->get(2));
                 if (method_exists($this->model, 'breadcrumbResourceTitle')) {
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
-                        $pathParts->slice(0, 3)->implode('/'), ($this->model->provider_id)?: null);
+                        $pathParts->slice(0, 3)->implode('/'), $this->model->provider_id ?? null);
                 }
         }
 
