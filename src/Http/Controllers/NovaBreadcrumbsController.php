@@ -50,7 +50,6 @@ class NovaBreadcrumbsController extends Controller
             if (empty($this->resource) == false) {
 
                 $this->model = $this->findResourceOrFail($query->get('viaResourceId'));
-                var_dump($this->model->provider_id .'B');
                 $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
                     $cloneParts->slice(0, 2)->implode('/'), $this->model->provider_id ?? null);
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
@@ -65,7 +64,7 @@ class NovaBreadcrumbsController extends Controller
         $this->resource = $this->resourceFromKey($pathParts->get(1));
 
         if ($this->resource) {
-            var_dump($this->model->provider_id .'V');
+            dd($this->model);
             $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
                 $pathParts->slice(0, 2)->implode('/'),  $this->model->provider_id ?? null);
         }
@@ -80,7 +79,6 @@ class NovaBreadcrumbsController extends Controller
         } elseif ($pathParts->has(2)) {
             $this->resource = Nova::resourceForKey($pathParts->get(1));
             $this->model = $this->findResourceOrFail($pathParts->get(2));
-            var_dump($this->model->provider_id . 'N');
                 if (method_exists($this->model, 'breadcrumbResourceTitle')) {
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
                         $pathParts->slice(0, 3)->implode('/'), $this->model->provider_id ?? null);
