@@ -42,6 +42,7 @@ class NovaBreadcrumbsController extends Controller
             $cloneParts = clone $pathParts;
 
             if ($query->has('viaResource')) {
+                dd($query->get('viaResource'));
                 $cloneParts->put(1, $query->get('viaResource'));
             }
             if ($query->has('viaResourceId')) {
