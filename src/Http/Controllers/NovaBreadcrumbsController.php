@@ -36,13 +36,10 @@ class NovaBreadcrumbsController extends Controller
 
         $this->appendToCrumbs(__('Home'), '/');
 
-        $ignore_resource = ['Assistants', 'Clinics', 'Covered Surgeries'];
-
         if ($request->has('query') && ($query = collect($request->get('query'))->filter()) && $query->count() > 1) {
             $cloneParts = clone $pathParts;
 
             if ($query->has('viaResource')) {
-                dd($query->get('viaResource'));
                 $cloneParts->put(1, $query->get('viaResource'));
             }
             if ($query->has('viaResourceId')) {
@@ -52,7 +49,6 @@ class NovaBreadcrumbsController extends Controller
             }
 
             if (empty($this->resource) == false) {
-                dd($this->resource .'V');
 
                 $this->model = $this->findResourceOrFail($query->get('viaResourceId'));
                 $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
@@ -83,11 +79,10 @@ class NovaBreadcrumbsController extends Controller
             $lens = Str::title(str_replace('-', ' ', $pathParts->get(3)));
             $this->appendToCrumbs($lens, $pathParts->slice(0, 4)->implode('/'));
         } elseif ($pathParts->has(2)) {
-            dd($pathParts. 'n');
             $this->resource = Nova::resourceForKey($pathParts->get(1));
             $this->model = $this->findResourceOrFail($pathParts->get(2));
+            dd($this->model);
             if (method_exists($this->model, 'breadcrumbResourceTitle')) {
-                if(!in_array($this->model->breadcrumbResourceTitle(), $ignore_resource, true))
                 $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
                     $pathParts->slice(0, 3)->implode('/'));
             }
