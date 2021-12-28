@@ -65,7 +65,7 @@ class NovaBreadcrumbsController extends Controller
 
         if ($this->resource) {
             $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
-                $pathParts->slice(0, 2)->implode('/'));
+                $pathParts->slice(0, 2)->implode('/'), ($this->model->provider_id)?: null);
         }
 
         if ($view == 'create') {
