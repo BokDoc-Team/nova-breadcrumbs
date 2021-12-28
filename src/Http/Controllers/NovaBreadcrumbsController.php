@@ -62,7 +62,9 @@ class NovaBreadcrumbsController extends Controller
         }
 
         $this->resource = $this->resourceFromKey($pathParts->get(1));
-        $this->model = $this->findResourceOrFail($pathParts->get(2));
+        if($pathParts->get(2)){
+            $this->model = $this->findResourceOrFail($pathParts->get(2));
+        }
 
         if ($this->resource) {
             $this->appendToCrumbs($this->resource::breadcrumbResourceLabel(),
