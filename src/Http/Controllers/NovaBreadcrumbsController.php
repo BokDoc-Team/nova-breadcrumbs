@@ -80,11 +80,9 @@ class NovaBreadcrumbsController extends Controller
             $this->model = $this->findResourceOrFail($pathParts->get(2));
             if($pathParts->get(1) == "assistants")
             {
-                $this->resource = Nova::resourceForKey("providers");
-                $this->model = $this->findResourceOrFail($this->model->provider_id);
                 if (method_exists($this->model, 'breadcrumbResourceTitle')) {
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
-                        $pathParts->slice(0, 3)->implode('/'));
+                        "resources/providers/".$this->model->provider_id);
                 }
             }
             else{
@@ -106,7 +104,6 @@ class NovaBreadcrumbsController extends Controller
 
     protected function appendToCrumbs($title, $url = null)
     {
-        dd($url);
         $ignore_resource = [ 'Assistants','Clinics', 'Covered Surgeries'];
         if(!in_array($title, $ignore_resource, true)) {
             $path = Str::start($url, '/');
