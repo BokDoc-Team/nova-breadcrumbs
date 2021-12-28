@@ -106,7 +106,8 @@ class NovaBreadcrumbsController extends Controller
 
     protected function appendToCrumbs($title, $url = null)
     {
-        $ignore_resource = [ 'Clinics', 'Covered Surgeries'];
+        dd($url);
+        $ignore_resource = [ 'Assistants','Clinics', 'Covered Surgeries'];
         if(!in_array($title, $ignore_resource, true)) {
             $path = Str::start($url, '/');
         }else{
