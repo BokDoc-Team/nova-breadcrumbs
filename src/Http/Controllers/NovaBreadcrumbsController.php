@@ -81,11 +81,24 @@ class NovaBreadcrumbsController extends Controller
         } elseif ($pathParts->has(2)) {
             $this->resource = Nova::resourceForKey($pathParts->get(1));
             $this->model = $this->findResourceOrFail($pathParts->get(2));
-            dd($this->model);
-            if (method_exists($this->model, 'breadcrumbResourceTitle')) {
-                $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
-                    $pathParts->slice(0, 3)->implode('/'));
+            if($pathParts->get(1) == "assistants")
+            {
+                $pathParts->get(1) = 'provider';
+                $pathParts->get(2) = $this->model->provider_id;
+                $this->resource = Nova::resourceForKey($pathParts->get(1));
+                $this->model = $this->findResourceOrFail($pathParts->get(2));
+                if (method_exists($this->model, 'breadcrumbResourceTitle')) {
+                    $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
+                        $pathParts->slice(0, 3)->implode('/'));
+                }
             }
+            else{
+                if (method_exists($this->model, 'breadcrumbResourceTitle')) {
+                    $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
+                        $pathParts->slice(0, 3)->implode('/'));
+                }
+            }
+
         }
 
         if ($pathParts->has(3) && $view != 'lens') {
@@ -98,7 +111,7 @@ class NovaBreadcrumbsController extends Controller
 
     protected function appendToCrumbs($title, $url = null)
     {
-        $ignore_resource = ['Assistants', 'Clinics', 'Covered Surgeries'];
+        $ignore_resource = [ 'Clinics', 'Covered Surgeries'];
         if(!in_array($title, $ignore_resource, true)) {
             $path = Str::start($url, '/');
         }else{
