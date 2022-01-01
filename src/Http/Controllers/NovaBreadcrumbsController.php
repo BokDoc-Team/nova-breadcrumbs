@@ -84,8 +84,19 @@ class NovaBreadcrumbsController extends Controller
                 if (method_exists($this->model, 'breadcrumbResourceTitle')) {
                     $ignore_resource = [ 'Assistants','Clinics', 'Covered Surgeries', 'Articles', 'Consultings'];
                     if(in_array($this->resource::breadcrumbResourceLabel(), $ignore_resource, true)) {
+                        if($this->resource::breadcrumbResourceLabel() == 'Assistants') {
+                           $tab = 'tab=assistant';
+                        }elseif ($this->resource::breadcrumbResourceLabel() == 'Clinics') {
+                            $tab = 'tab=clinic';
+                        }elseif ($this->resource::breadcrumbResourceLabel() == 'Covered Surgeries') {
+                            $tab = 'tab=covered-surgery';
+                        }elseif ($this->resource::breadcrumbResourceLabel() == 'Articles') {
+                            $tab = 'tab=article';
+                        }elseif ($this->resource::breadcrumbResourceLabel() == 'Consultings') {
+                            $tab = 'tab=consulting';
+                        }
                         $this->appendToCrumbs(optional($this->model->provider)->name,
-                            "/resources/providers/" . $this->model->provider_id, $this->model->provider_id ?? null);
+                            "/resources/providers/" . $this->model->provider_id. '?'.$tab, $this->model->provider_id ?? null);
                     }
                     $this->appendToCrumbs($this->model->breadcrumbResourceTitle(),
                         $pathParts->slice(0, 3)->implode('/'), $this->model->provider_id ?? null);
